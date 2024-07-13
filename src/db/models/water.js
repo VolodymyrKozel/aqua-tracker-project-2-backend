@@ -1,10 +1,9 @@
 import { Schema, model } from 'mongoose';
 
 const waterSchema = new Schema({
-
   date: {
     type: Date,
-    // required: true,
+    required: true,
     default: Date.now,
   },
   volume: {
@@ -18,10 +17,9 @@ const waterSchema = new Schema({
   //   default: 0,
   // },
   userId: {
-    type: String,
-    // type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'user',
-    // required: true
+    required: true,
   },
 });
 
