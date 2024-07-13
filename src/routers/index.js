@@ -1,12 +1,10 @@
-import { Router } from "express";
-// import authRouter from "./auth.js";
-import {waterRouter} from "./water.js";
+import { Router } from 'express';
+import usersRouter from './users.js';
+import { waterRouter } from './water.js';
 
-const rootRouter = Router();
+const router = Router();
 
-rootRouter.use('/water', waterRouter);
-// rootRouter.use('/user', userRouter);
+router.use('/water', waterRouter);
+router.use('/users', usersRouter);
 
-
-
-export default rootRouter;
+export default router;
