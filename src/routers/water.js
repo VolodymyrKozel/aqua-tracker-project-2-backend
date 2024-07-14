@@ -5,7 +5,7 @@ import {
   deleteWaterController,
   updateWaterController,
   dailyWaterController,
-  // monthlyWaterController,
+  monthlyWaterController,
 } from '../controllers/water.js';
 import { authenticate } from '../middlewares/authenticate.js';
 export const waterRouter = Router();
@@ -16,4 +16,4 @@ waterRouter.post('/add-water', ctrlWrapper(addWaterController));
 waterRouter.patch('/update-volume/:id', ctrlWrapper(updateWaterController));
 waterRouter.delete('/delete/:id', ctrlWrapper(deleteWaterController));
 waterRouter.get('/daily', ctrlWrapper(dailyWaterController));
-// waterRouter.get('/monthly', ctrlWrapper(monthlyWaterController));
+waterRouter.get('/monthly', ctrlWrapper(monthlyWaterController));
