@@ -19,6 +19,9 @@ tags:
 servers:
   - url: <http://localhost:4000>
 paths:
+  /users/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
 components:
   securitySchemes:
     bearerAuth:

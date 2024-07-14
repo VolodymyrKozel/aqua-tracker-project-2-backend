@@ -1,0 +1,66 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    description: "User's name"
+    type: string
+    example: 'John Doe'
+  email:
+    description: "User's email"
+    type: string
+    example: 'john@gmail.com'
+  password:
+    description: "User's password"
+    type: string
+    example: '12345678'
+  gender:
+    description: "User's gender"
+    type: string
+    enum:
+      - undefined
+      - woman
+      - man
+    example: 'undefined'
+  weight:
+    description: "User's weight"
+    type: number
+    example: 70
+  activeTimeSports:
+    description: "User's active time in sports"
+    type: number
+    example: 5
+  waterDrink:
+    description: "User's water consumption in liters"
+    type: number
+    example: 1.8
+  token:
+    description: "User's authentication token"
+    type: string
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+  tempToken:
+    description: "User's temporary token"
+    type: string
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+  avatarURL:
+    description: "Link to User's avatar"
+    type: string
+    example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+  googleId:
+    description: "User's Google ID"
+    type: string
+    example: '1234567890'
+  verify:
+    description: "User's verification status"
+    type: boolean
+    example: false
+  verificationToken:
+    description: "User's verification token"
+    type: string
+    example: '1e06baac-fbeb-4586-97ca-85f69cccc744'
+  displayName:
+    description: "User's display name"
+    type: string
+    example: 'JohnD'
