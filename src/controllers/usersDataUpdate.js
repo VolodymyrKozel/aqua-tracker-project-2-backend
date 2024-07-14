@@ -1,48 +1,48 @@
-// import 'dotenv/config';
+import 'dotenv/config';
 
-// import fs from 'fs/promises';
-// import { User } from '../db/models/user.js';
-// import { updateUserSchema } from '../schemas/usersSchemas.js';
+// import fs from 'node:fs/promises';
+import { User } from '../db/models/user.js';
+import { updateUserSchema } from '../validation/userDataUpdate.js';
 // import { v2 as cloudinary } from 'cloudinary';
 
-// export const updDataUser = async (req, res) => {
-//   const id = req.user.id.toString();
+export const updateUserController = async (req, res) => {
+  const id = req.user._id;
+  console.log(id);
+  try {
+    const dataToUpdate = { ...req.body };
+    if (dataToUpdate.weight === null) dataToUpdate.weight = 0;
+    if (dataToUpdate.activeTimeSports === null)
+      dataToUpdate.activeTimeSports = 0;
 
-//   try {
-//     const dataToUpdate = { ...req.body };
-//     if (dataToUpdate.weight === null) dataToUpdate.weight = 0;
-//     if (dataToUpdate.activeTimeSports === null)
-//       dataToUpdate.activeTimeSports = 0;
+    const { error, value } = updateUserSchema.validate(dataToUpdate);
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
 
-//     const { error, value } = updateUserSchema.validate(dataToUpdate);
-//     if (error) {
-//       return res.status(400).json({ message: error.message });
-//     }
+    const updatedUser = await User.findByIdAndUpdate(id, value, {
+      new: true,
+    });
 
-//     const updatedUser = await User.findByIdAndUpdate(id, value, {
-//       new: true,
-//     });
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
 
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: 'User not found.' });
-//     }
-
-//     res.status(200).json({
-//       message: 'Update successful',
-//       user: {
-//         name: updatedUser.name,
-//         email: updatedUser.email,
-//         gender: updatedUser.gender,
-//         weight: updatedUser.weight,
-//         activeTimeSports: updatedUser.activeTimeSports,
-//         waterDrink: updatedUser.waterDrink,
-//       },
-//     });
-//   } catch (error) {
-//     console.error('Error updating:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
+    res.status(200).json({
+      message: 'Update successful',
+      user: {
+        name: updatedUser.name,
+        email: updatedUser.email,
+        gender: updatedUser.gender,
+        weight: updatedUser.weight,
+        activeTimeSports: updatedUser.activeTimeSports,
+        waterDrink: updatedUser.waterDrink,
+      },
+    });
+  } catch (error) {
+    console.error('Error updating:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 // cloudinary.config({
 //   cloud_name: process.env.CLOUD_NAME,
@@ -51,7 +51,7 @@
 //   secure: true,
 // });
 
-// export async function updAvatar(req, res, next) {
+// export async function updateAvatar(req, res) {
 //   const options = {
 //     use_filename: true,
 //     unique_filename: true,

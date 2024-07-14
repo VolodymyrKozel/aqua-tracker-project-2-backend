@@ -1,30 +1,11 @@
 import Joi from 'joi';
-export const updDataUserSchema = (req, res, next) => {
-  const schema = Joi.object({
-    name: {
-      type: String,
-    },
-    gender: {
-      type: String,
-      enum: ['woman', 'man'],
-    },
-    weight: {
-      type: Number,
-    },
-    activeTimeSports: {
-      type: Number,
-    },
-    waterDrink: {
-      type: Number,
-      default: 1.8,
-      avatarURL: {
-        type: String,
-      },
-    },
-  });
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
-  }
-  next();
-};
+
+export const updateUserSchema = Joi.object({
+  email: Joi.string().email().optional(),
+  name: Joi.string().trim().allow(null, '').optional(),
+  gender: Joi.string().valid('woman', 'man').optional(),
+  weight: Joi.number().default(0).optional(),
+  activeTimeSports: Joi.number().default(0).optional(),
+  waterDrink: Joi.number().default(1.8).optional(),
+  avatarURL: Joi.string().optional(),
+});

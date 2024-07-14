@@ -142,26 +142,27 @@ export async function usersQuantityController(req, res, next) {
   }
 }
 
-// export async function currentUserController(req, res) {
-//   try {
-//     const user = await User.findById(req.user.id.toString());
-//     if (!user) {
-//       return res.status(401).send('Not authorized');
-//     }
-//     res.status(200).json({
-//       user: {
-//         id: user._id,
-//         name: user.name,
-//         email: user.email,
-//         gender: user.gender,
-//         weight: user.weight,
-//         activeTimeSports: user.activeTimeSports,
-//         waterDrink: user.waterDrink,
-//         avatarURL: user.avatarURL,
-//       },
-//     });
-//   } catch (error) {
-//     console.error('Error fetching user:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// }
+export async function currentUserController(req, res) {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(401).send('Not authorized');
+    }
+    res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        gender: user.gender,
+        weight: user.weight,
+        activeTimeSports: user.activeTimeSports,
+        waterDrink: user.waterDrink,
+        avatarURL: user.avatarURL,
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
