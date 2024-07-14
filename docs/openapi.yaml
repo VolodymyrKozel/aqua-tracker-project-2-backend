@@ -8,10 +8,14 @@ info:
   description: >
     This is a documentation of AquaTrack App
 tags:
-  - name: AquaTrack
-    description: Operations to track the water the user drinks.
   - name: Auth
     description: Auth operations.
+  - name: Users
+    description: Users operations.
+  - name: Water
+    description: Operations to track the water the user drinks.
+  - name: Water{id}
+    description: Operations with glass.
 servers:
   - url: <http://localhost:4000>
 paths:
