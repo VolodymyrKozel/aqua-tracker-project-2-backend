@@ -127,7 +127,7 @@ export const dailyWaterController = async (req, res) => {
 export const monthlyWaterController = async (req, res) => {
   try {
     const userId = req.user.id;
-    // const dailyNorm = req.query.dailyNorma;
+    const dailyNorm = req.query.dailyNorma;
 
     const month = req.query.month
       ? parseInt(req.query.month, 10)
