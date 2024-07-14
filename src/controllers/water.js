@@ -60,7 +60,7 @@ export const deleteWaterController = async (req, res) => {
 
   const { id } = req.params;
   const userId = req.user.id;
-console.log(userId)
+  console.log(userId)
   try {
     const deleteWater = await Water.findOneAndDelete({
       _id: id,
@@ -97,7 +97,7 @@ export const dailyWaterController = async (req, res) => {
         $lt: endDate,
       },
     });
-console.log(dailyWater)
+    console.log(dailyWater)
     let dayVolume = 0;
     const arrDailyWater = []
     dailyWater.map((el) => {
@@ -124,37 +124,35 @@ console.log(dailyWater)
   }
 };
 
-// export const monthlyWaterController = async (req, res) => {
-//   try {
-//     // const userId = req.user.id;
-//     const dailyNorm = req.query.dailyNorma;
+export const monthlyWaterController = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // const dailyNorm = req.query.dailyNorma;
 
-//     const month = req.query.month
-//       ? parseInt(req.query.month, 10)
-//       : new Date().getMonth() + 1;
-//     const year = req.query.year
-//       ? parseInt(req.query.year, 10)
-//       : new Date().getFullYear();
+    const month = req.query.month
+      ? parseInt(req.query.month, 10)
+      : new Date().getMonth() + 1;
+    const year = req.query.year
+      ? parseInt(req.query.year, 10)
+      : new Date().getFullYear();
 
-//     if (isNaN(month) || isNaN(year)) {
-//       return res.status(400).json({ message: "Invalid month or year format" });
-//     }
+    if (isNaN(month) || isNaN(year)) {
+      return res.status(400).json({ message: "Invalid month or year format" });
+    }
 
-//     const startDate = new Date(Date.UTC(year, month - 1, 1));
-//     const endDate = new Date(Date.UTC(year, month, 1));
+    const startDate = new Date(Date.UTC(year, month - 1, 1));
+    const endDate = new Date(Date.UTC(year, month, 1));
 
-//     const monthlyWater = await Water.find({
-//       // user: userId,
-//       date: {
-//         $gte: startDate,
-//         $lt: endDate,
-//       },
-//     });
+    const monthlyWater = await Water.find({
+      userId: userId,
+      date: {
+        $gte: startDate,
+        $lt: endDate,
+      },
+    });
 
-//     res.status(200).json(monthlyWater);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
-
+    res.status(200).json(monthlyWater);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
