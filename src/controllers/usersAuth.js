@@ -1,5 +1,5 @@
 import {
-  registerUser,
+ registerUser,
   requestResetToken,
   resetPassword,
 } from '../services/usersAuth.js';
@@ -11,6 +11,7 @@ import { generateAuthUrl } from '../utils/googleOAuth2.js';
 import { loginOrSignupWithGoogle } from '../services/usersAuth.js';
 import { User } from '../db/models/user.js';
 
+
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
 
@@ -20,6 +21,7 @@ export const registerUserController = async (req, res) => {
     data: user,
   });
 };
+
 
 export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
