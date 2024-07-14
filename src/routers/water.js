@@ -4,7 +4,7 @@ import {
   addWaterController,
   deleteWaterController,
   updateWaterController,
-  // dailyWaterController,
+  dailyWaterController,
   // monthlyWaterController,
 } from '../controllers/water.js';
 import { authenticate } from '../middlewares/authenticate.js';
