@@ -12,7 +12,7 @@ import {
   currentUserController,
 } from '../controllers/usersAuth.js';
 import {
-  // updateAvatar,
+  updateAvatar,
   updateUserController,
 } from '../controllers/usersDataUpdate.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -25,6 +25,7 @@ usersRouter.use(cookieParser());
 
 usersRouter.post(
   '/register',
+
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
@@ -44,18 +45,17 @@ usersRouter.get('/current', authenticate, ctrlWrapper(currentUserController));
 usersRouter.patch(
   '/update',
   authenticate,
-  upload.single('avatar'),
   validateBody(updateUserSchema),
   ctrlWrapper(updateUserController),
 );
 
-// usersRouter.patch(
-//   '/avatar',
-//   authenticate,
-//   upload.single('avatar'),
-//   validateBody(updateAvatar),
-//   ctrlWrapper(updateAvatar),
-// );
+usersRouter.patch(
+  '/avatar',
+  authenticate,
+  upload.single('avatar'),
+
+  ctrlWrapper(updateAvatar),
+);
 
 usersRouter.post('/logout', ctrlWrapper(logoutUserController));
 
