@@ -1,0 +1,51 @@
+summary: Get daily water intake
+operationId: getDayilyWater
+description: Retrieves the user's water intake for a specified date.
+tags:
+  - Water
+security:
+  - bearerAuth: []
+parameters:
+  - name: dailyNorma
+    in: query
+    required: true
+    description: The daily water intake norm in liters.
+    schema:
+      type: number
+      example: 2.0
+  - name: date
+    in: query
+    required: false
+    description: The date for which to retrieve the water intake (YYYY-MM-DD). Defaults to the current date.
+    schema:
+      type: string
+      format: date
+      example: '2024-07-14'
+responses:
+  '200':
+    description: Daily water intake retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            percentage:
+              type: number
+              description: The percentage of daily water intake goal achieved.
+              example: 75
+            arrDailyWater:
+              type: array
+              items:
+                $ref: ../../components/schemas/water.yaml
+  '400':
+    description: Invalid dailyNorma format
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Invalid dailyNorma format
+  '500':
+    $ref: ../../components/responses/500.yaml
