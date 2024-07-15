@@ -12,7 +12,7 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(cors({
-  origin: 'http://localhost:5173/', // Allow any origin
+  origin: '*', // Allow any origin
 }));
 
   app.use('/api-docs', swagger());
