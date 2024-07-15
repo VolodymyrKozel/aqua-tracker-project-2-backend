@@ -434,6 +434,350 @@
           }
         }
       }
+    },
+    "/water/add-water": {
+      "post": {
+        "summary": "Add water intake",
+        "operationId": "addWater",
+        "description": "Adds a new water intake record for the user.",
+        "tags": [
+          "Water"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/water"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully added water intake",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully added water!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/water/monthly": {
+      "get": {
+        "summary": "Get monthly water intake",
+        "operationId": "GetMonthlyWater",
+        "description": "Retrieves the user's water intake for a specified month and year.",
+        "tags": [
+          "Water"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dailyNorma",
+            "in": "query",
+            "required": true,
+            "description": "The daily water intake norm in liters.",
+            "schema": {
+              "type": "number",
+              "example": 2
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "description": "The month for which to retrieve the water intake (1-12). Defaults to the current month.",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "description": "The year for which to retrieve the water intake. Defaults to the current year.",
+            "schema": {
+              "type": "integer",
+              "example": 2024
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Monthly water intake retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/water"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid month or year format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid month or year format"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/water/daily": {
+      "get": {
+        "summary": "Get daily water intake",
+        "operationId": "getDayilyWater",
+        "description": "Retrieves the user's water intake for a specified date.",
+        "tags": [
+          "Water"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dailyNorma",
+            "in": "query",
+            "required": true,
+            "description": "The daily water intake norm in liters.",
+            "schema": {
+              "type": "number",
+              "example": 2
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "description": "The date for which to retrieve the water intake (YYYY-MM-DD). Defaults to the current date.",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2024-07-14"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily water intake retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "percentage": {
+                      "type": "number",
+                      "description": "The percentage of daily water intake goal achieved.",
+                      "example": 75
+                    },
+                    "arrDailyWater": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/water"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid dailyNorma format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid dailyNorma format"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/water/delete/{id}": {
+      "delete": {
+        "summary": "Delete water intake",
+        "operationId": "deleteWater",
+        "description": "Deletes a water intake record for the user.",
+        "tags": [
+          "Water{id}"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the water intake record to delete.",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439011"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted water intake"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/water/update-volume/{id}": {
+      "patch": {
+        "summary": "Update the volume of water intake",
+        "operationId": "updateWaterVolume",
+        "description": "Updates the volume of water intake for a specified entry.",
+        "tags": [
+          "Water{id}"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the water intake entry to update.",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439011"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to update the water intake entry",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date when water intake occurred",
+                    "example": "2024-07-14T08:00:00Z"
+                  },
+                  "volume": {
+                    "type": "number",
+                    "description": "Volume of water intake in liters",
+                    "example": 1.5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Volume of water intake updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Response message",
+                      "example": "Successfully updated volume of water!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -566,6 +910,33 @@
             "type": "string",
             "format": "date-time",
             "example": "2025-12-31T23:59:59Z"
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "date",
+          "volume",
+          "userId"
+        ],
+        "properties": {
+          "date": {
+            "description": "Date when water intake occurred",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-14T08:00:00Z"
+          },
+          "volume": {
+            "description": "Volume of water intake in liters",
+            "type": "number",
+            "example": 1.5
+          },
+          "userId": {
+            "description": "ID of the user recording the water intake",
+            "type": "string",
+            "format": "uuid",
+            "example": "507f1f77bcf86cd799439011"
           }
         }
       }

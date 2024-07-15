@@ -1,0 +1,50 @@
+summary: Get monthly water intake
+operationId: GetMonthlyWater
+description: Retrieves the user's water intake for a specified month and year.
+tags:
+  - Water
+security:
+  - bearerAuth: []
+parameters:
+  - name: dailyNorma
+    in: query
+    required: true
+    description: The daily water intake norm in liters.
+    schema:
+      type: number
+      example: 2.0
+  - name: month
+    in: query
+    required: false
+    description: The month for which to retrieve the water intake (1-12). Defaults to the current month.
+    schema:
+      type: integer
+      example: 7
+  - name: year
+    in: query
+    required: false
+    description: The year for which to retrieve the water intake. Defaults to the current year.
+    schema:
+      type: integer
+      example: 2024
+responses:
+  '200':
+    description: Monthly water intake retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../../components/schemas/water.yaml
+  '400':
+    description: Invalid month or year format
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Invalid month or year format
+  '500':
+    $ref: ../../components/responses/500.yaml
