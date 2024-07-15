@@ -1,5 +1,5 @@
-import { Water } from "../db/models/water.js"
-import mongoose from "mongoose"
+import { Water } from '../db/models/water.js';
+import mongoose from 'mongoose';
 
 export const addWaterController = async (req, res) => {
   const { date, volume } = req.body;
@@ -76,12 +76,14 @@ export const dailyWaterController = async (req, res) => {
   try {
     const dailyNorma = parseFloat(req.query.dailyNorma);
     if (isNaN(dailyNorma)) {
-      return res.status(400).json({ message: "Invalid dailyNorma format" });
+      return res.status(400).json({ message: 'Invalid dailyNorma format' });
     }
 
     const userId = new mongoose.Types.ObjectId(req.user.id);
     const date = req.query.date ? new Date(req.query.date) : new Date();
-    const startDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const startDate = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+    );
     const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
 
     const dailyWater = await Water.aggregate([
@@ -97,24 +99,33 @@ export const dailyWaterController = async (req, res) => {
       {
         $group: {
           _id: null,
-          dayVolume: { $sum: "$volume" },
+          dayVolume: { $sum: '$volume' },
           arrDailyWater: {
             $push: {
               time: {
-                $dateToString: { format: "%H:%M", date: "$date", timezone: "UTC" }
+                $dateToString: {
+                  format: '%H:%M',
+                  date: '$date',
+                  timezone: 'UTC',
+                },
               },
-              volume: "$volume"
-            }
-          }
+              volume: '$volume',
+            },
+          },
         },
       },
       {
         $project: {
           _id: 0,
-          percentage: { $round: [{ $multiply: [{ $divide: ["$dayVolume", dailyNorma] }, 100] }, 0] },
-          arrDailyWater: 1
-        }
-      }
+          percentage: {
+            $round: [
+              { $multiply: [{ $divide: ['$dayVolume', dailyNorma] }, 100] },
+              0,
+            ],
+          },
+          arrDailyWater: 1,
+        },
+      },
     ]);
 
     res.status(200).json(dailyWater[0] || { percentage: 0, arrDailyWater: [] });
@@ -125,7 +136,6 @@ export const dailyWaterController = async (req, res) => {
 
 export const monthlyWaterController = async (req, res) => {
   try {
-
     const dailyNorma = parseFloat(req.query.dailyNorma);
     const userId = new mongoose.Types.ObjectId(req.user.id);
 
@@ -137,7 +147,7 @@ export const monthlyWaterController = async (req, res) => {
       : new Date().getFullYear();
 
     if (isNaN(month) || isNaN(year)) {
-      return res.status(400).json({ message: "Invalid month or year format" });
+      return res.status(400).json({ message: 'Invalid month or year format' });
     }
 
     const startDate = new Date(Date.UTC(year, month - 1, 1));
@@ -155,27 +165,20 @@ export const monthlyWaterController = async (req, res) => {
       },
       {
         $group: {
-          _id: { $dayOfMonth: "$date" },
-          totalValue: { $sum: { $divide: ["$volume", dailyNorma] } },
+          _id: { $dayOfMonth: '$date' },
+          totalValue: { $sum: { $divide: ['$volume', dailyNorma] } },
         },
       },
       {
         $project: {
           _id: 1,
-          totalValue: { $round: ["$totalValue", 2] }
-        }
+          totalValue: { $round: ['$totalValue', 2] },
+        },
       },
       {
-        $sort: { "_id": 1 }
-      }
-    ]);
-    const monthlyWater = await Water.find({
-      userId: userId,
-      date: {
-        $gte: startDate,
-        $lt: endDate,
+        $sort: { _id: 1 },
       },
-    });
+    ]);
 
     res.status(200).json(monthlyWater);
   } catch (error) {
