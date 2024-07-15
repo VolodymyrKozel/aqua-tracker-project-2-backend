@@ -1,0 +1,26 @@
+summary: Logout the current user
+operationId: logOut
+tags:
+  - Auth
+security:
+  - bearerAuth: []
+parameters:
+  - name: Authorization
+    in: header
+    description: access token
+    required: true
+    schema:
+      type: string
+      example: 'eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjYyMTY0ODU4LCJleHAiOjE2NjIyNjQ4NTg4fQ'
+  - name: sessionId
+    in: cookie
+    description: session id
+    required: true
+    schema:
+      type: string
+      example: '60c72b2f4f1a4e3d8c7e4b3a'
+responses:
+  '200':
+    description: User logged out successfully
+  '401':
+    $ref: ../../components/responses/401.yaml

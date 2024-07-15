@@ -1,0 +1,45 @@
+summary: Get current user information
+operationId: getCurrentUser
+tags:
+  - Auth
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Current user information retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+              example: '507f1f77bcf86cd799439011'
+            name:
+              type: string
+              example: 'John Doe'
+            email:
+              type: string
+            gender:
+              type: string
+              enum:
+                - undefined
+                - woman
+                - man
+              example: 'undefined'
+            weight:
+              type: number
+              example: 70
+            activeTimeSports:
+              type: number
+              example: 5
+            waterDrink:
+              type: number
+              example: 1.8
+            avatarURL:
+              type: string
+              example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

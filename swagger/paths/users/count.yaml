@@ -1,0 +1,24 @@
+summary: 'Get total number of users'
+operationId: getUsersCount
+description: 'Returns the total number of users in the database.'
+tags:
+  - Users
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: 'Total number of users fetched successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - usersQuantity
+          properties:
+            usersQuantity:
+              type: integer
+              example: 150
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
