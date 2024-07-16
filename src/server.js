@@ -13,6 +13,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors({
   origin: '*', // Allow any origin
+    credentials: true 
 }));
 
   app.use('/api-docs', swagger());
