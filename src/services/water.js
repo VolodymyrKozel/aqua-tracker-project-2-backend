@@ -1,9 +1,9 @@
 import { Water } from '../db/models/water.js';
 
-export const addWaterService = async (userId, date, volume) => {
+export const addWaterService = async (userId, kievDate, volume) => {
   return await Water.create({
     userId: userId,
-    date: date ? new Date(date) : new Date(),
+    date: kievDate,
     volume,
   });
 };
