@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import moment from 'moment-timezone';
 import { addWaterService, dailyWaterService, deleteWaterService, monthlyWaterService, updateWaterService } from '../services/water.js';
 
 export const addWaterController = async (req, res) => {
@@ -7,14 +7,20 @@ export const addWaterController = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const addWater = await addWaterService(userId, date, volume);
+
+    const kievDate = date ? moment.tz(date, 'Europe/Kiev').toDate() : moment.tz(new Date(), 'Europe/Kiev').toDate();
+    const addWater = await addWaterService(userId, kievDate, volume);
+
+    const responseDate = moment.tz(addWater.date, 'Europe/Kiev').format();
 
     res.status(201).json({
       status: 201,
       message: 'Successfully added water!',
-      data: addWater,
+      data: {
+        ...addWater._doc,
+        date: responseDate
+      },
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
