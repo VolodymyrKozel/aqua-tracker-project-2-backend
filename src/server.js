@@ -6,15 +6,13 @@ import { swagger } from './middlewares/swagger.js';
 
 import 'dotenv/config';
 import router from './routers/index.js';
+import { corsOptions } from './utils/corsOptions.js';
 
 export const setupServer = () => {
   const app = express();
 
   app.use(express.json());
-  app.use(cors({
-  origin: '*', // Allow any origin
-    credentials: true 
-}));
+  app.use(cors(corsOptions));
 
   app.use('/api-docs', swagger());
 
