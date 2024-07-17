@@ -1,10 +1,11 @@
 import { Water } from '../db/models/water.js';
 
-export const addWaterService = async (userId, kievDate, volume) => {
+export const addWaterService = async (userId, kievDate, volume, id) => {
   return await Water.create({
     userId: userId,
     date: kievDate,
     volume,
+    _id: id,
   });
 };
 

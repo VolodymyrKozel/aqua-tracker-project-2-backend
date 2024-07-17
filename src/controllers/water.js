@@ -5,11 +5,12 @@ import { addWaterService, dailyWaterService, deleteWaterService, monthlyWaterSer
 export const addWaterController = async (req, res) => {
   const { date, volume } = req.body;
   const userId = req.user.id;
+  const { id } = req.params;
 
   try {
 
     const kievDate = date ? moment.tz(date, 'Europe/Kiev').toDate() : moment.tz(new Date(), 'Europe/Kiev').toDate();
-    const addWater = await addWaterService(userId, kievDate, volume);
+    const addWater = await addWaterService(userId, kievDate, volume, id);
 
     const responseDate = moment.tz(addWater.date, 'Europe/Kiev').format();
 
