@@ -48,6 +48,7 @@ export const dailyWaterService = async (userId, startDate, endDate, dailyNorma) 
         dayVolume: { $sum: '$volume' },
         arrDailyWater: {
           $push: {
+            _id: '$_id',
             time: {
               $dateToString: {
                 format: '%H:%M',
