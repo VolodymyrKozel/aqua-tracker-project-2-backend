@@ -1,5 +1,5 @@
 export const allowedOrigins = [
-  'http://localhost:4000',
+  'http://localhost:5173',
   'https://aqua-tracker-project-2.vercel.app',
 ];
 export const corsOptions = {
