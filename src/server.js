@@ -14,6 +14,12 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors(corsOptions));
 
+  // app.use(
+  //   cors({
+  //     origin: '*',
+  //   }),
+  // );
+
   app.use('/api-docs', swagger());
 
   app.use(router);

@@ -5,8 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: <http://www.apache.org/licenses/LICENSE-2.0.html>
-  description: >
-    This is a documentation of AquaTrack App
+  description: This is a documentation of AquaTrack App
 tags:
   - name: Auth
     description: Auth operations.
@@ -17,7 +16,7 @@ tags:
   - name: Water{id}
     description: Operations with glass.
 servers:
-  - url: <http://localhost:4000>
+  - url: http://localhost:4000
 paths:
   /users/register:
     post:
@@ -37,6 +36,9 @@ paths:
   /users/update:
     patch:
       $ref: ../swagger/paths/users/patchUserData.yaml
+  /users/avatar:
+    patch:
+      $ref: ../swagger/paths/users/patchAvatar.yaml
   /water/add-water:
     post:
       $ref: ../swagger/paths/water/postAddWater.yaml

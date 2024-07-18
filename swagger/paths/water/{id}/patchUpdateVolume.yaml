@@ -21,15 +21,13 @@ requestBody:
       schema:
         type: object
         properties:
-          date:
+          time:
             type: string
-            format: date-time
-            description: Date when water intake occurred
-            example: '2024-07-14T08:00:00Z'
+            example: '18:40'
           volume:
             type: number
-            description: Volume of water intake in liters
-            example: 1.5
+            description: Volume of water intake in milliliters
+            example: 250
 responses:
   '200':
     description: Volume of water intake updated successfully
@@ -45,9 +43,22 @@ responses:
             message:
               type: string
               description: Response message
-              example: Successfully updated volume of water!
+              example: Successfully updated volume of the water!
             data:
-              $ref: ../../../components/schemas/water.yaml
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: '66994d44b456e6b3c39d3582'
+                date:
+                  type: string
+                  example: '2024-07-18T17:13:40.860Z'
+                volume:
+                  type: number
+                  example: 500
+                userId:
+                  type: string
+                  example: '6693dd1c4693614757d726e0'
   '400':
     $ref: ../../../components/responses/400.yaml
   '404':

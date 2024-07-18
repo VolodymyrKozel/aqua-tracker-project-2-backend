@@ -7,11 +7,11 @@
       "name": "Apache 2.0",
       "url": "<http://www.apache.org/licenses/LICENSE-2.0.html>"
     },
-    "description": "This is a documentation of AquaTrack App\n"
+    "description": "This is a documentation of AquaTrack App"
   },
   "servers": [
     {
-      "url": "<http://localhost:4000>"
+      "url": "http://localhost:4000"
     }
   ],
   "tags": [
@@ -51,16 +51,10 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "name",
                   "email",
                   "password"
                 ],
                 "properties": {
-                  "name": {
-                    "description": "User's name",
-                    "type": "string",
-                    "example": "John Doe"
-                  },
                   "email": {
                     "description": "User's email",
                     "type": "string",
@@ -90,20 +84,61 @@
                         "email": {
                           "type": "string"
                         },
-                        "subscription": {
-                          "type": "string"
+                        "gender": {
+                          "type": "string",
+                          "example": "woman"
                         },
-                        "status": {
-                          "type": "integer",
-                          "example": 201
+                        "weight": {
+                          "type": "number",
+                          "example": 0
+                        },
+                        "activeTimeSports": {
+                          "type": "number",
+                          "example": 0
+                        },
+                        "waterDrink": {
+                          "type": "number",
+                          "example": 1.8
+                        },
+                        "token": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "tempToken": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "avatarUrl": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "googleId": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "verify": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "verificationToken": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "66995048b456e6b3c39d3599"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-07-18T17:26:32.656Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-07-18T17:26:32.656Z"
                         },
                         "message": {
                           "type": "string",
                           "example": "Successfully registered user!"
-                        },
-                        "data": {
-                          "type": "object",
-                          "$ref": "#/components/schemas/user"
                         }
                       }
                     }
@@ -165,39 +200,29 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
                   "properties": {
-                    "token": {
-                      "type": "string"
+                    "status": {
+                      "type": "integer",
+                      "example": 200
                     },
-                    "user": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in an user!"
+                    },
+                    "data": {
                       "type": "object",
                       "properties": {
-                        "email": {
-                          "type": "string"
-                        },
-                        "subscription": {
-                          "type": "string"
-                        },
-                        "status": {
-                          "type": "integer",
-                          "example": 200
-                        },
-                        "message": {
+                        "accessToken": {
                           "type": "string",
-                          "example": "Successfully logged in an user!"
+                          "example": "wVXKhF1+nQEKIlQOPCACDzL4F/pJ5xa8JTge8Fes"
                         },
-                        "data": {
-                          "type": "object",
-                          "$ref": "#/components/schemas/user"
+                        "refreshToken": {
+                          "type": "string",
+                          "example": "2dGpRZkR58seuCbSMPdBYI2DLdOCcf+GN8FLNGki"
                         },
-                        "session": {
-                          "type": "object",
-                          "$ref": "#/components/schemas/session"
+                        "userId": {
+                          "type": "string",
+                          "example": "6693dd1c4693614757d726e0"
                         }
                       }
                     }
@@ -309,13 +334,13 @@
             }
           },
           {
-            "name": "sessionId",
-            "in": "cookie",
-            "description": "session id",
+            "name": "id",
+            "in": "query",
+            "description": "UserId",
             "required": true,
             "schema": {
               "type": "string",
-              "example": "60c72b2f4f1a4e3d8c7e4b3a"
+              "example": "66996a0e1a65dd13c4186b31"
             }
           }
         ],
@@ -354,8 +379,8 @@
                   ],
                   "properties": {
                     "usersQuantity": {
-                      "type": "integer",
-                      "example": 150
+                      "type": "number",
+                      "example": 56
                     }
                   }
                 }
@@ -373,8 +398,8 @@
     },
     "/users/update": {
       "patch": {
-        "summary": "Update user data and avatar",
-        "description": "Updates user data including uploading a new avatar",
+        "summary": "Update user data",
+        "description": "Updates user data",
         "operationId": "Update",
         "tags": [
           "Users"
@@ -386,19 +411,9 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "avatar": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "The user's avatar image"
-                  },
-                  "userData": {
-                    "$ref": "#/components/schemas/user"
-                  }
-                }
+                "type": "object"
               }
             }
           }
@@ -416,9 +431,91 @@
                       "example": "Update successful"
                     },
                     "user": {
-                      "$ref": "#/components/schemas/user"
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "John"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "ssadasde@gmail.com"
+                        },
+                        "gender\"": {
+                          "type": "string",
+                          "example": "woman"
+                        },
+                        "weight": {
+                          "type": "number",
+                          "example": 0
+                        },
+                        "activeTimeSports\"": {
+                          "type": "number",
+                          "example": 0
+                        },
+                        "waterDrink": {
+                          "type": "number",
+                          "example": 1.8
+                        }
+                      }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "summary": "Update user avatar",
+        "description": "Updates user avatar",
+        "operationId": "UpdateAvatar",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "66996a0e1a65dd13c4186b31"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "User's avatar image"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update successful",
+            "content": {
+              "form-data": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
@@ -475,7 +572,25 @@
                       "example": "Successfully added water!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/water"
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "example": "2024-07-18T21:24:06+03:00"
+                        },
+                        "volume": {
+                          "type": "number",
+                          "example": 650
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "6693dd1c4693614757d726e0"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "66995dc67b708c82c1d5c288"
+                        }
+                      }
                     }
                   }
                 }
@@ -509,10 +624,10 @@
             "name": "dailyNorma",
             "in": "query",
             "required": true,
-            "description": "The daily water intake norm in liters.",
+            "description": "The daily water intake norm in milliliters.",
             "schema": {
               "type": "number",
-              "example": 2
+              "example": 2000
             }
           },
           {
@@ -542,9 +657,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/water"
+                  "type": "object",
+                  "properties": {
+                    "dayOfMonth": {
+                      "type": "string",
+                      "example": "18"
+                    },
+                    "percentage": {
+                      "type": "string",
+                      "example": "60"
+                    }
                   }
                 }
               }
@@ -590,10 +712,10 @@
             "name": "dailyNorma",
             "in": "query",
             "required": true,
-            "description": "The daily water intake norm in liters.",
+            "description": "The daily water intake norm in milliliters.",
             "schema": {
               "type": "number",
-              "example": 2
+              "example": 2000
             }
           },
           {
@@ -623,8 +745,15 @@
                     },
                     "arrDailyWater": {
                       "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/water"
+                      "properties": {
+                        "time": {
+                          "type": "string",
+                          "example": "08:39"
+                        },
+                        "volume": {
+                          "type": "number",
+                          "example": 350
+                        }
                       }
                     }
                   }
@@ -725,16 +854,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "date": {
+                  "time": {
                     "type": "string",
-                    "format": "date-time",
-                    "description": "Date when water intake occurred",
-                    "example": "2024-07-14T08:00:00Z"
+                    "example": "18:40"
                   },
                   "volume": {
                     "type": "number",
-                    "description": "Volume of water intake in liters",
-                    "example": 1.5
+                    "description": "Volume of water intake in milliliters",
+                    "example": 250
                   }
                 }
               }
@@ -757,10 +884,28 @@
                     "message": {
                       "type": "string",
                       "description": "Response message",
-                      "example": "Successfully updated volume of water!"
+                      "example": "Successfully updated volume of the water!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/water"
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "66994d44b456e6b3c39d3582"
+                        },
+                        "date": {
+                          "type": "string",
+                          "example": "2024-07-18T17:13:40.860Z"
+                        },
+                        "volume": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "6693dd1c4693614757d726e0"
+                        }
+                      }
                     }
                   }
                 }
@@ -785,160 +930,6 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
-      }
-    },
-    "schemas": {
-      "user": {
-        "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
-        "properties": {
-          "name": {
-            "description": "User's name",
-            "type": "string",
-            "example": "John Doe"
-          },
-          "email": {
-            "description": "User's email",
-            "type": "string",
-            "example": "john@gmail.com"
-          },
-          "password": {
-            "description": "User's password",
-            "type": "string",
-            "example": "12345678"
-          },
-          "gender": {
-            "description": "User's gender",
-            "type": "string",
-            "enum": [
-              "undefined",
-              "woman",
-              "man"
-            ],
-            "example": "undefined"
-          },
-          "weight": {
-            "description": "User's weight",
-            "type": "number",
-            "example": 70
-          },
-          "activeTimeSports": {
-            "description": "User's active time in sports",
-            "type": "number",
-            "example": 5
-          },
-          "waterDrink": {
-            "description": "User's water consumption in liters",
-            "type": "number",
-            "example": 1.8
-          },
-          "token": {
-            "description": "User's authentication token",
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-          },
-          "tempToken": {
-            "description": "User's temporary token",
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-          },
-          "avatarURL": {
-            "description": "Link to User's avatar",
-            "type": "string",
-            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
-          },
-          "googleId": {
-            "description": "User's Google ID",
-            "type": "string",
-            "example": "1234567890"
-          },
-          "verify": {
-            "description": "User's verification status",
-            "type": "boolean",
-            "example": false
-          },
-          "verificationToken": {
-            "description": "User's verification token",
-            "type": "string",
-            "example": "1e06baac-fbeb-4586-97ca-85f69cccc744"
-          },
-          "displayName": {
-            "description": "User's display name",
-            "type": "string",
-            "example": "JohnD"
-          }
-        }
-      },
-      "session": {
-        "type": "object",
-        "required": [
-          "userId",
-          "accessToken",
-          "refreshToken",
-          "accessTokenValidUntil",
-          "refreshTokenValidUntil"
-        ],
-        "properties": {
-          "userId": {
-            "description": "ID of the user associated with the session",
-            "type": "string",
-            "format": "uuid",
-            "example": "507f1f77bcf86cd799439011"
-          },
-          "accessToken": {
-            "description": "Access token for the session",
-            "type": "string",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-          },
-          "refreshToken": {
-            "description": "Refresh token for the session",
-            "type": "string",
-            "example": "dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4gdGhhdCBpcyB2ZXJ5IGxvbmc="
-          },
-          "accessTokenValidUntil": {
-            "description": "Expiration date of the access token",
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-12-31T23:59:59Z"
-          },
-          "refreshTokenValidUntil": {
-            "description": "Expiration date of the refresh token",
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-12-31T23:59:59Z"
-          }
-        }
-      },
-      "water": {
-        "type": "object",
-        "required": [
-          "date",
-          "volume",
-          "userId"
-        ],
-        "properties": {
-          "date": {
-            "description": "Date when water intake occurred",
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-07-14T08:00:00Z"
-          },
-          "volume": {
-            "description": "Volume of water intake in liters",
-            "type": "number",
-            "example": 1.5
-          },
-          "userId": {
-            "description": "ID of the user recording the water intake",
-            "type": "string",
-            "format": "uuid",
-            "example": "507f1f77bcf86cd799439011"
-          }
-        }
       }
     },
     "responses": {
@@ -1074,6 +1065,35 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "water": {
+        "type": "object",
+        "required": [
+          "date",
+          "volume",
+          "userId"
+        ],
+        "properties": {
+          "date": {
+            "description": "Date when water intake occurred",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-14T08:00:00Z"
+          },
+          "volume": {
+            "description": "Volume of water intake in liters",
+            "type": "number",
+            "example": 1500
+          },
+          "userId": {
+            "description": "ID of the user recording the water intake",
+            "type": "string",
+            "format": "uuid",
+            "example": "507f1f77bcf86cd799439011"
           }
         }
       }
