@@ -1,6 +1,6 @@
 export const allowedOrigins = [
   'http://localhost:4000',
-  // 'https://aqua-tracker-project-2.vercel.app',
+  'https://aqua-tracker-project-2.vercel.app',
 ];
 export const corsOptions = {
   origin: function (origin, callback) {
