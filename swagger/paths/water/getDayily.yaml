@@ -9,10 +9,10 @@ parameters:
   - name: dailyNorma
     in: query
     required: true
-    description: The daily water intake norm in liters.
+    description: The daily water intake norm in milliliters.
     schema:
       type: number
-      example: 2.0
+      example: 2000
   - name: date
     in: query
     required: false
@@ -35,8 +35,13 @@ responses:
               example: 75
             arrDailyWater:
               type: array
-              items:
-                $ref: ../../components/schemas/water.yaml
+              properties:
+                time:
+                  type: string
+                  example: '08:39'
+                volume:
+                  type: number
+                  example: 350
   '400':
     description: Invalid dailyNorma format
     content:

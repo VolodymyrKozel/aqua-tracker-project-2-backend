@@ -1,8 +1,4 @@
 type: object
-required:
-  - name
-  - email
-  - password
 properties:
   name:
     description: "User's name"
