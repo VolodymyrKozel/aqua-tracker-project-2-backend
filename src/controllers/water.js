@@ -20,7 +20,7 @@ export const addWaterController = async (req, res) => {
         ...addWater._doc,
         date: responseDate
       },
-    });
+    }).select('-__v');
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -28,11 +28,11 @@ export const addWaterController = async (req, res) => {
 
 export const updateWaterController = async (req, res) => {
   const { id } = req.params;
-  const { date, volume } = req.body;
+  const { time, volume } = req.body;
   const userId = req.user.id;
 
   try {
-    const updateWater = await updateWaterService(userId, date, volume, id)
+    const updateWater = await updateWaterService(userId, id, volume, time);
 
     if (!updateWater) {
       return res.status(404).json({ message: 'Entry not found' });
