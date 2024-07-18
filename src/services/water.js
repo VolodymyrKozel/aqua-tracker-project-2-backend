@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+import moment from 'moment';
+
 import { Water } from '../db/models/water.js';
 
 export const addWaterService = async (userId, kievDate, volume) => {
@@ -8,19 +11,42 @@ export const addWaterService = async (userId, kievDate, volume) => {
   });
 };
 
-export const updateWaterService = async (userId, date, volume, id) => {
+export const updateWaterService = async (userId, id, volume, time) => {
+  const mutableElement = await Water.findOne({
+    _id: id,
+    userId: new mongoose.Types.ObjectId(userId),
+  });
+
+  if (!mutableElement) {
+    return null;
+  }
+
+  let newDate;
+  if (time) {
+    const mutableElementObj = moment(mutableElement.date);
+
+    const newTime = moment.tz(time, 'HH:mm', 'UTC');
+
+    mutableElementObj.utc();
+    mutableElementObj.set({
+      hour: newTime.hour(),
+      minute: newTime.minute(),
+      second: 0,
+      millisecond: 0,
+    });
+
+    newDate = mutableElementObj.toDate();
+  }
+
+  const updateFields = {
+    date: newDate ? newDate : mutableElement.date,
+    volume: volume !== undefined ? volume : mutableElement.volume,
+  };
+
   return await Water.findByIdAndUpdate(
-    {
-      _id: id,
-      userId: userId,
-    },
-    {
-      date: date ? new Date(date) : undefined,
-      volume: volume,
-    },
-    {
-      new: true,
-    },
+    id,
+    { $set: updateFields },
+    { new: true }
   );
 };
 
@@ -95,17 +121,19 @@ export const monthlyWaterService = async (userId, startDate, endDate, dailyNorma
     },
     {
       $project: {
-        _id: 1,
-        totalValue: { $round: ['$totalValue', 2] },
+        dayOfMonth: '$_id',
+        percentage: { $round: ['$totalValue', 2] },
+        _id: 0,  // Удаляем поле _id
       },
     },
     {
       $addFields: {
-        totalValue: { $trunc: { $multiply: ['$totalValue', 100] } },
+        percentage: { $trunc: { $multiply: ['$percentage', 100] } },
       },
     },
     {
-      $sort: { _id: 1 },
+      $sort: { dayOfMonth: 1 },
     },
   ]);
 };
+

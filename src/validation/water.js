@@ -6,6 +6,7 @@ export const addWaterSchema = Joi.object({
 );
 
 export const updateWaterSchema = Joi.object({
-  volume: Joi.number().required(),
+  volume: Joi.number(),
+  time: Joi.string(),
 },
 );
