@@ -26,7 +26,20 @@ responses:
               type: string
               example: Successfully added water!
             data:
-              $ref: ../../components/schemas/water.yaml
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: '2024-07-18T21:24:06+03:00'
+                volume:
+                  type: number
+                  example: 650
+                userId:
+                  type: string
+                  example: '6693dd1c4693614757d726e0'
+                _id:
+                  type: string
+                  example: '66995dc67b708c82c1d5c288'
   '400':
     $ref: ../../components/responses/400.yaml
   '500':

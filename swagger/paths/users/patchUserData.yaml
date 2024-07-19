@@ -1,5 +1,5 @@
-summary: Update user data and avatar
-description: Updates user data including uploading a new avatar
+summary: Update user data
+description: Updates user data
 operationId: Update
 tags:
   - Users
@@ -7,16 +7,9 @@ security:
   - bearerAuth: []
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
-        properties:
-          avatar:
-            type: string
-            format: binary
-            description: The user's avatar image
-          userData:
-            $ref: ../../components/schemas/user.yaml
 responses:
   '200':
     description: Update successful
@@ -29,7 +22,26 @@ responses:
               type: string
               example: Update successful
             user:
-              $ref: ../../components/schemas/user.yaml
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'John'
+                email:
+                  type: string
+                  example: 'ssadasde@gmail.com'
+                gender":
+                  type: string
+                  example: 'woman'
+                weight:
+                  type: number
+                  example: 0
+                activeTimeSports":
+                  type: number
+                  example: 0
+                waterDrink:
+                  type: number
+                  example: 1.8
   '400':
     $ref: ../../components/responses/400.yaml
   '404':

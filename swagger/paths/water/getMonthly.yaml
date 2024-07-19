@@ -9,10 +9,10 @@ parameters:
   - name: dailyNorma
     in: query
     required: true
-    description: The daily water intake norm in liters.
+    description: The daily water intake norm in milliliters.
     schema:
       type: number
-      example: 2.0
+      example: 2000
   - name: month
     in: query
     required: false
@@ -33,9 +33,14 @@ responses:
     content:
       application/json:
         schema:
-          type: array
-          items:
-            $ref: ../../components/schemas/water.yaml
+          type: object
+          properties:
+            dayOfMonth:
+              type: string
+              example: '18'
+            percentage:
+              type: string
+              example: '60'
   '400':
     description: Invalid month or year format
     content:

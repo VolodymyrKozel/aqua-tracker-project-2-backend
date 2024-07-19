@@ -12,13 +12,13 @@ parameters:
     schema:
       type: string
       example: 'eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjYyMTY0ODU4LCJleHAiOjE2NjIyNjQ4NTg4fQ'
-  - name: sessionId
-    in: cookie
-    description: session id
+  - name: id
+    in: query
+    description: UserId
     required: true
     schema:
       type: string
-      example: '60c72b2f4f1a4e3d8c7e4b3a'
+      example: '66996a0e1a65dd13c4186b31'
 responses:
   '200':
     description: User logged out successfully

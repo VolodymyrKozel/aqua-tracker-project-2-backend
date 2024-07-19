@@ -28,32 +28,25 @@ responses:
       application/json:
         schema:
           type: object
-          required:
-            - status
-            - message
-            - data
           properties:
-            token:
+            status:
+              type: integer
+              example: 200
+            message:
               type: string
-            user:
+              example: 'Successfully logged in an user!'
+            data:
               type: object
               properties:
-                email:
+                accessToken:
                   type: string
-                subscription:
+                  example: 'wVXKhF1+nQEKIlQOPCACDzL4F/pJ5xa8JTge8Fes'
+                refreshToken:
                   type: string
-                status:
-                  type: integer
-                  example: 200
-                message:
+                  example: '2dGpRZkR58seuCbSMPdBYI2DLdOCcf+GN8FLNGki'
+                userId:
                   type: string
-                  example: 'Successfully logged in an user!'
-                data:
-                  type: object
-                  $ref: ../../components/schemas/user.yaml
-                session:
-                  type: object
-                  $ref: ../../components/schemas/session.yaml
+                  example: '6693dd1c4693614757d726e0'
   '400':
     $ref: ../../components/responses/400.yaml
   '404':

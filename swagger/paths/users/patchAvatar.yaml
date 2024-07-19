@@ -1,0 +1,37 @@
+summary: Update user avatar
+description: Updates user avatar
+operationId: UpdateAvatar
+tags:
+  - Users
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          id:
+            type: string
+            example: '66996a0e1a65dd13c4186b31'
+          avatar:
+            type: string
+            format: binary
+            description: User's avatar image
+responses:
+  '200':
+    description: Update successful
+    content:
+      form-data:
+        schema:
+          type: object
+          properties:
+            avatarURL:
+              type: string
+              example: 'https://res.cloudinary.com/dmpg7f1c0/image/upload/v1721334135/1721334134056_Screenshot_2024-07-16_at_12.25.38_tqsud2.png'
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

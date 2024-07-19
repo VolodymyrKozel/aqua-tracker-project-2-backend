@@ -8,7 +8,7 @@ const usersSchema = new Schema(
     gender: {
       type: String,
       enum: ['undefined', 'woman', 'man'],
-      default: 'undefined',
+      default: 'woman',
     },
     weight: { type: Number, default: 0 },
     activeTimeSports: { type: Number, default: 0 },
@@ -19,7 +19,6 @@ const usersSchema = new Schema(
     googleId: { type: String, default: null },
     verify: { type: Boolean, default: false },
     verificationToken: { type: String, default: null },
-    displayName: { type: String, default: null },
   },
   {
     versionKey: false,
