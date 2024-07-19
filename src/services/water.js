@@ -123,8 +123,8 @@ export const monthlyWaterService = async (userId, startDate, endDate, dailyNorma
       $project: {
         dayOfMonth: '$_id',
         percentage: { $round: ['$totalValue', 2] },
-        _id: 0,  // Удаляем поле _id
-      },
+        _id: 0,
+      }
     },
     {
       $addFields: {
