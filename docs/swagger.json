@@ -515,7 +515,13 @@
             "content": {
               "form-data": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "avatarURL": {
+                      "type": "string",
+                      "example": "https://res.cloudinary.com/dmpg7f1c0/image/upload/v1721334135/1721334134056_Screenshot_2024-07-16_at_12.25.38_tqsud2.png"
+                    }
+                  }
                 }
               }
             }
@@ -550,7 +556,16 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/water"
+                "properties": {
+                  "volume": {
+                    "type": "number",
+                    "example": 1800
+                  },
+                  "time": {
+                    "type": "string",
+                    "example": "23:30"
+                  }
+                }
               }
             }
           }
@@ -1065,35 +1080,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "schemas": {
-      "water": {
-        "type": "object",
-        "required": [
-          "date",
-          "volume",
-          "userId"
-        ],
-        "properties": {
-          "date": {
-            "description": "Date when water intake occurred",
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-07-14T08:00:00Z"
-          },
-          "volume": {
-            "description": "Volume of water intake in liters",
-            "type": "number",
-            "example": 1500
-          },
-          "userId": {
-            "description": "ID of the user recording the water intake",
-            "type": "string",
-            "format": "uuid",
-            "example": "507f1f77bcf86cd799439011"
           }
         }
       }

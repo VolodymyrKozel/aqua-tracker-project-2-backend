@@ -10,7 +10,13 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: ../../components/schemas/water.yaml
+        properties:
+          volume:
+            type: number
+            example: 1800
+          time:
+            type: string
+            example: '23:30'
 responses:
   '201':
     description: Successfully added water intake

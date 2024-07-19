@@ -3,6 +3,7 @@ required:
   - date
   - volume
   - userId
+  - time
 properties:
   date:
     description: 'Date when water intake occurred'
@@ -10,9 +11,13 @@ properties:
     format: date-time
     example: '2024-07-14T08:00:00Z'
   volume:
-    description: 'Volume of water intake in liters'
+    description: 'Volume of water intake in milliliters'
     type: number
     example: 1500
+  time:
+    description: 'Time when water intake occurred'
+    type: string
+    example: '12:20'
   userId:
     description: 'ID of the user recording the water intake'
     type: string
