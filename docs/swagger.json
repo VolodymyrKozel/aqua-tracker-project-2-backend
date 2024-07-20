@@ -12,6 +12,9 @@
   "servers": [
     {
       "url": "http://localhost:4000"
+    },
+    {
+      "url": "https://aqua-tracker-project-2-backend.onrender.com"
     }
   ],
   "tags": [
@@ -37,9 +40,7 @@
       "post": {
         "summary": "Register a new user",
         "operationId": "registerUser",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "security": [
           {
             "bearerAuth": []
@@ -50,10 +51,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "description": "User's email",
@@ -160,9 +158,7 @@
       "post": {
         "summary": "Log in to get access token",
         "operationId": "logIn",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "security": [
           {
             "bearerAuth": []
@@ -173,10 +169,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "description": "User's email",
@@ -244,9 +237,7 @@
       "get": {
         "summary": "Get current user information",
         "operationId": "getCurrentUser",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "security": [
           {
             "bearerAuth": []
@@ -273,11 +264,7 @@
                     },
                     "gender": {
                       "type": "string",
-                      "enum": [
-                        "undefined",
-                        "woman",
-                        "man"
-                      ],
+                      "enum": ["undefined", "woman", "man"],
                       "example": "undefined"
                     },
                     "weight": {
@@ -314,9 +301,7 @@
       "post": {
         "summary": "Logout the current user",
         "operationId": "logOut",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "security": [
           {
             "bearerAuth": []
@@ -474,9 +459,7 @@
         "summary": "Get total number of users",
         "operationId": "getUsersCount",
         "description": "Returns the total number of users in the database.",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "security": [
           {
             "bearerAuth": []
@@ -489,9 +472,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "usersQuantity"
-                  ],
+                  "required": ["usersQuantity"],
                   "properties": {
                     "usersQuantity": {
                       "type": "number",
@@ -516,9 +497,7 @@
         "summary": "Update user data",
         "description": "Updates user data",
         "operationId": "Update",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "security": [
           {
             "bearerAuth": []
@@ -596,9 +575,7 @@
         "summary": "Update user avatar",
         "description": "Updates user avatar",
         "operationId": "UpdateAvatar",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "security": [
           {
             "bearerAuth": []
@@ -658,9 +635,7 @@
         "summary": "Add water intake",
         "operationId": "addWater",
         "description": "Adds a new water intake record for the user.",
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "security": [
           {
             "bearerAuth": []
@@ -741,9 +716,7 @@
         "summary": "Get monthly water intake",
         "operationId": "GetMonthlyWater",
         "description": "Retrieves the user's water intake for a specified month and year.",
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "security": [
           {
             "bearerAuth": []
@@ -829,9 +802,7 @@
         "summary": "Get daily water intake",
         "operationId": "getDayilyWater",
         "description": "Retrieves the user's water intake for a specified date.",
-        "tags": [
-          "Water"
-        ],
+        "tags": ["Water"],
         "security": [
           {
             "bearerAuth": []
@@ -918,9 +889,7 @@
         "summary": "Delete water intake",
         "operationId": "deleteWater",
         "description": "Deletes a water intake record for the user.",
-        "tags": [
-          "Water{id}"
-        ],
+        "tags": ["Water{id}"],
         "security": [
           {
             "bearerAuth": []
@@ -956,9 +925,7 @@
         "summary": "Update the volume of water intake",
         "operationId": "updateWaterVolume",
         "description": "Updates the volume of water intake for a specified entry.",
-        "tags": [
-          "Water{id}"
-        ],
+        "tags": ["Water{id}"],
         "security": [
           {
             "bearerAuth": []
@@ -1069,10 +1036,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
+              "required": ["status", "message"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1093,11 +1057,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1109,9 +1069,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1130,11 +1088,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1146,9 +1100,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1167,11 +1119,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1183,9 +1131,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",

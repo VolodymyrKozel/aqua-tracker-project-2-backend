@@ -8,7 +8,7 @@ export const addWaterController = async (req, res) => {
   const userId = req.user.id;
 
   try {
-   
+
     const dateTime = date && time ? `${date} ${time}` : null;
 
     const kievDate = dateTime ? moment.tz(dateTime, 'YYYY-MM-DD HH:mm', 'Europe/Kiev').toDate() : moment.tz(new Date(), 'Europe/Kiev').toDate();

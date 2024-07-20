@@ -16,7 +16,8 @@ tags:
   - name: Water{id}
     description: Operations with glass.
 servers:
-  - url: http://localhost:4000
+  - url: <http://localhost:4000>
+  - url: <https://aqua-tracker-project-2-backend.onrender.com>
 paths:
   /users/register:
     post:
