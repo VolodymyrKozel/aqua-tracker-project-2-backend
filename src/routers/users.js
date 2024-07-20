@@ -4,12 +4,16 @@ import { ctrlWrapper } from '../middlewares/ctrlWrapper.js';
 import { loginUserSchema } from '../validation/userAuth.js';
 import { registerUserSchema } from '../validation/userAuth.js';
 import { updateUserSchema } from '../validation/userDataUpdate.js';
+import { requestResetPasswordEmailSchema } from '../validation/userAuth.js';
+import { resetPasswordSchema } from '../validation/userAuth.js';
 import {
   loginUserController,
   logoutUserController,
   registerUserController,
   usersQuantityController,
   currentUserController,
+  requestResetPasswordEmailController,
+  resetPasswordController,
 } from '../controllers/usersAuth.js';
 import {
   updateAvatar,
@@ -38,6 +42,18 @@ usersRouter.post(
 
 usersRouter.post('/logout', ctrlWrapper(logoutUserController));
 
+usersRouter.post(
+  '/send-reset-password-email',
+  validateBody(requestResetPasswordEmailSchema),
+  ctrlWrapper(requestResetPasswordEmailController),
+);
+
+usersRouter.post(
+  '/reset-password',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
+);
+
 usersRouter.get('/count', ctrlWrapper(usersQuantityController));
 
 usersRouter.get('/current', authenticate, ctrlWrapper(currentUserController));
@@ -56,7 +72,5 @@ usersRouter.patch(
 
   ctrlWrapper(updateAvatar),
 );
-
-usersRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 export default usersRouter;
