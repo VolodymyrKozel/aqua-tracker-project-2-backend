@@ -31,6 +31,12 @@ paths:
   /users/logout:
     post:
       $ref: ../swagger/paths/auth/logout.yaml
+  /users/send-reset-password-email:
+    post:
+      $ref: ../swagger/paths/auth/sendResetPasswordEmail.yaml
+  /users/reset-password:
+    post:
+      $ref: ../swagger/paths/auth/resetPassword.yaml
   /users/count:
     get:
       $ref: ../swagger/paths/users/count.yaml
@@ -48,7 +54,7 @@ paths:
       $ref: ../swagger/paths/water/getMonthly.yaml
   /water/daily:
     get:
-      $ref: ../swagger/paths/water/getDayily.yaml
+      $ref: ../swagger/paths/water/getDaily.yaml
   /water/delete/{id}:
     delete:
       $ref: ../swagger/paths/water/{id}/delete.yaml
