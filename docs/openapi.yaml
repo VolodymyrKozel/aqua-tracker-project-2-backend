@@ -17,9 +17,9 @@ tags:
     description: Operations with glass.
 servers:
   - url: http://localhost:4000
-  - description: Local server
+   description: Local server
   - url: https://nodejs-hw-mongodb-1-vfnl.onrender.com
-  - description: Live server
+   description: Live server
 paths:
   /users/register:
     post:
