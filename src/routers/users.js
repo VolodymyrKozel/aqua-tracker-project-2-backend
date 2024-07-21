@@ -6,6 +6,7 @@ import { registerUserSchema } from '../validation/userAuth.js';
 import { updateUserSchema } from '../validation/userDataUpdate.js';
 import { requestResetPasswordEmailSchema } from '../validation/userAuth.js';
 import { resetPasswordSchema } from '../validation/userAuth.js';
+import { loginWithGoogleOAuthSchema } from '../validation/userAuth.js';
 import {
   loginUserController,
   logoutUserController,
@@ -14,6 +15,8 @@ import {
   currentUserController,
   requestResetPasswordEmailController,
   resetPasswordController,
+  getGoogleOAuthUrlController,
+  loginWithGoogleController,
 } from '../controllers/usersAuth.js';
 import {
   updateAvatar,
@@ -52,6 +55,17 @@ usersRouter.post(
   '/reset-password',
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
+);
+
+usersRouter.post(
+  '/get-google-url-code',
+  ctrlWrapper(getGoogleOAuthUrlController),
+);
+
+usersRouter.post(
+  '/login-with-google',
+  validateBody(loginWithGoogleOAuthSchema),
+  ctrlWrapper(loginWithGoogleController),
 );
 
 usersRouter.get('/count', ctrlWrapper(usersQuantityController));

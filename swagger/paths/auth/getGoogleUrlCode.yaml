@@ -1,0 +1,44 @@
+summary: Get Google Url Code
+operationId: getGoogleUrlCode
+
+tags:
+  - Auth
+security:
+  - bearerAuth: []
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+        properties:
+          email:
+            description: "User's email"
+            type: string
+            example: 'google@gmail.com'
+
+responses:
+  '200':
+    description: 'Successfully get Google Url with code!'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'Successfully get Google Url with code!'
+            data:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: 'URL to get Google Url with code'
+                  example: 'https://accounts.google.com/o/oauth2/v2/auth?...&prompt=consent'
+
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml

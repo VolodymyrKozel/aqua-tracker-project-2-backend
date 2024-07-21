@@ -11,10 +11,10 @@ import { corsOptions } from './utils/corsOptions.js';
 export const setupServer = () => {
   const app = express();
 
+  app.use('/api-docs', swagger());
+
   app.use(express.json());
   app.use(cors(corsOptions));
-
-  app.use('/api-docs', swagger());
 
   app.use(router);
 
