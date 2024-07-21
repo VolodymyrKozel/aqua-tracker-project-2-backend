@@ -1,12 +1,12 @@
-import { OAuth2Client } from "google-auth-library";
-import fs from "node:fs";
-import path from "node:path";
-import createHttpError from "http-errors";
-import { ENV_VARS } from "../constants/index.js";
-import { env } from "../utils/env.js";
+import { OAuth2Client } from 'google-auth-library';
+import fs from 'node:fs';
+import path from 'node:path';
+import createHttpError from 'http-errors';
+import { ENV_VARS } from '../constants/index.js';
+import { env } from '../utils/env.js';
 
 const oauthConfig = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), "google-oauth.json")).toString()
+  fs.readFileSync(path.join(process.cwd(), 'google-oauth.json')).toString(),
 );
 
 const googleOAuthClient = new OAuth2Client({
@@ -18,14 +18,16 @@ const googleOAuthClient = new OAuth2Client({
 export const generateAuthUrl = () =>
   googleOAuthClient.generateAuthUrl({
     scope: [
-      "<https://www.googleapis.com/auth/userinfo.email>",
-      "<https://www.googleapis.com/auth/userinfo.profile>",
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
     ],
   });
 
 export const validateCode = async (code) => {
+  console.log(validateCode);
   const response = await googleOAuthClient.getToken(code);
-  if (!response.tokens.id_token) throw createHttpError(401, "Unauthorized");
+  console.log(response);
+  if (!response.tokens.id_token) throw createHttpError(401, 'Unauthorized');
   const ticket = await googleOAuthClient.verifyIdToken({
     idToken: response.tokens.id_token,
   });
@@ -33,7 +35,7 @@ export const validateCode = async (code) => {
 };
 
 export const getFullNameFromGoogleTokenPayload = (payload) => {
-  let fullName = "Guest";
+  let fullName = 'Guest';
   if (payload.given_name && payload.family_name) {
     fullName = `${payload.given_name} ${payload.family_name}`;
   } else if (payload.given_name) {

@@ -16,8 +16,8 @@ tags:
   - name: Water{id}
     description: Operations with glass.
 servers:
-  - url: <http://localhost:4000>
-  - url: <https://aqua-tracker-project-2-backend.onrender.com>
+  - url: http://localhost:4000
+  - url: https://aqua-tracker-project-2-backend.onrender.com
 paths:
   /users/register:
     post:
@@ -37,6 +37,12 @@ paths:
   /users/reset-password:
     post:
       $ref: ../swagger/paths/auth/resetPassword.yaml
+  /users/get-google-url-code:
+    post:
+      $ref: ../swagger/paths/auth/getGoogleUrlCode.yaml
+  /users/login-with-google:
+    post:
+      $ref: ../swagger/paths/auth/loginWithGoogle.yaml
   /users/count:
     get:
       $ref: ../swagger/paths/users/count.yaml

@@ -1,0 +1,43 @@
+summary: Login with Google
+operationId: loginWithGoogle
+
+tags:
+  - Auth
+security:
+  - bearerAuth: []
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - code
+        properties:
+          code:
+            description: "User's Google code"
+            type: string
+            example: '4/0AcvDMrDlCyJQv4mFq3T_fpqaiN_YBKT_-10BpXx7rsI-0tY8vWOrO9Ig8uNERem7toThFQ'
+
+responses:
+  '200':
+    description: 'Successfully logged in via Google OAuth!'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'Successfully logged in via Google OAuth!'
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: 'wVXKhF1+nQEKIlQOPCACDzL4F/pJ5xa8JTge8Fes'
+
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
