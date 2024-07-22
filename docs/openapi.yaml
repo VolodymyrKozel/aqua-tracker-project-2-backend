@@ -25,6 +25,9 @@ paths:
   /users/login:
     post:
       $ref: ../swagger/paths/auth/login.yaml
+  /users/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
   /users/current:
     get:
       $ref: ../swagger/paths/auth/current.yaml
