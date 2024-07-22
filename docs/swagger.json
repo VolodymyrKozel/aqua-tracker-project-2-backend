@@ -276,7 +276,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully refreshed access token!",
+            "description": "Successfully refreshed tokens!",
             "content": {
               "application/json": {
                 "schema": {
@@ -284,14 +284,19 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Successfully refreshed access token!"
+                      "example": "Successfully refreshed tokens!"
                     },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "url": {
+                        "accessToken": {
                           "type": "string",
                           "description": "access token",
+                          "example": "1maDX6ctB27mAOXwj5dJndUX3rUTW/DBOpeSEuI"
+                        },
+                        "refreshToken": {
+                          "type": "string",
+                          "description": "refresh token",
                           "example": "1maDX6ctB27mAOXwj5dJndUX3rUTW/DBOpeSEuIi"
                         }
                       }
