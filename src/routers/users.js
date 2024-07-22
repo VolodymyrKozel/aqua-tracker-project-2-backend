@@ -17,6 +17,7 @@ import {
   resetPasswordController,
   getGoogleOAuthUrlController,
   loginWithGoogleController,
+  refreshSessionController,
 } from '../controllers/usersAuth.js';
 import {
   updateAvatar,
@@ -44,6 +45,8 @@ usersRouter.post(
 );
 
 usersRouter.post('/logout', ctrlWrapper(logoutUserController));
+
+usersRouter.post('/refresh', ctrlWrapper(refreshSessionController));
 
 usersRouter.post(
   '/send-reset-password-email',
