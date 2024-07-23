@@ -1,29 +1,25 @@
 import mongoose from 'mongoose';
-import moment from 'moment-timezone';
 import { addWaterService, dailyWaterService, deleteWaterService, monthlyWaterService, updateWaterService } from '../services/water.js';
 
-
 export const addWaterController = async (req, res) => {
-  const { date, time, volume } = req.body;
+  const { time, volume } = req.body;
   const userId = req.user.id;
 
   try {
+    if (!time || !volume) {
+      return res.status(400).json({ message: 'Time and volume are required!' });
+    }
+    const currentDate = new Date();
+    const [hours, minutes] = time.split(':');
 
-    const dateTime = date && time ? `${date} ${time}` : null;
+    currentDate.setUTCHours(parseInt(hours), parseInt(minutes), 0, 0);
 
-    const kievDate = dateTime ? moment.tz(dateTime, 'YYYY-MM-DD HH:mm', 'Europe/Kiev').toDate() : moment.tz(new Date(), 'Europe/Kiev').toDate();
-
-    const addWater = await addWaterService(userId, kievDate, volume);
-
-    const responseDate = moment.tz(addWater.date, 'Europe/Kiev').format();
+    const addWater = await addWaterService(userId, currentDate, volume);
 
     res.status(201).json({
       status: 201,
       message: 'Successfully added water!',
-      data: {
-        ...addWater._doc,
-        date: responseDate
-      },
+      data: addWater,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
