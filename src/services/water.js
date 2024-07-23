@@ -3,10 +3,10 @@ import moment from 'moment';
 
 import { Water } from '../db/models/water.js';
 
-export const addWaterService = async (userId, kievDate, volume) => {
+export const addWaterService = async (userId, date, volume) => {
   return await Water.create({
     userId: userId,
-    date: kievDate,
+    date: date,
     volume,
   });
 };
