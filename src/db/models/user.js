@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 
 const usersSchema = new Schema(
   {
-    name: { type: String, required: true, default: 'Waterman' },
+    name: { type: String, required: true, default: '' },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     gender: {
@@ -12,7 +12,7 @@ const usersSchema = new Schema(
     },
     weight: { type: Number, default: 0 },
     activeTimeSports: { type: Number, default: 0 },
-    waterDrink: { type: Number, default: 1.8 },
+    waterDrink: { type: Number, default: 1800 },
     token: { type: String, default: null },
     tempToken: { type: String, default: null },
     avatarURL: { type: String, default: null },
