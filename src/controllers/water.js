@@ -64,7 +64,11 @@ export const deleteWaterController = async (req, res) => {
       return res.status(404).json({ message: `Entry with ${id} not found` });
     }
 
-    res.status(204).json({});
+    res.status(204).json({
+      status: 204,
+      message: 'Successfully updated volume of water!',
+      data: {},
+    });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
