@@ -3,13 +3,29 @@ import moment from 'moment';
 
 import { Water } from '../db/models/water.js';
 
-export const addWaterService = async (userId, date, volume) => {
-  return await Water.create({
-    userId: userId,
-    date: date,
-    volume,
+export const addWaterService = async (userId, time, volume) => {
+
+  const newTime = moment.tz(time, 'HH:mm', 'UTC');
+
+  const currentDate = moment().utc();
+  currentDate.set({
+    hour: newTime.hour(),
+    minute: newTime.minute(),
+    second: 0,
+    millisecond: 0,
   });
+
+  const newDate = currentDate.toDate();
+
+  const newWater = new Water({
+    date: newDate,
+    volume,
+    userId: new mongoose.Types.ObjectId(userId),
+  });
+
+  return await newWater.save();
 };
+
 
 export const updateWaterService = async (userId, id, volume, time) => {
   const mutableElement = await Water.findOne({
